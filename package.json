@@ -1,0 +1,25 @@
+{
+  "name": "polygerrit-markdown-comments",
+  "version": "0.0.1",
+  "description": "Patches Polygerrit to use GFM for comment rendering",
+  "main": "index.js",
+  "license": "MIT",
+  "author": "Matthew Savage <bluepichu>",
+  "scripts": {
+    "build": "webpack"
+  },
+  "dependencies": {
+    "dompurify": "^2.0.14",
+    "highlight.js": "^10.1.2",
+    "marked": "^1.1.1"
+  },
+  "devDependencies": {
+    "@types/dompurify": "^2.0.4",
+    "@types/highlight.js": "^9.12.4",
+    "@types/marked": "^1.1.0",
+    "ts-loader": "^8.0.3",
+    "typescript": "^4.0.2",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12"
+  }
+}
