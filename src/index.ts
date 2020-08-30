@@ -9,7 +9,6 @@ async function getHljs(): Promise<typeof window.hljs> {
 	if ("hljs" in window) {
 		return window.hljs;
 	} else {
-		console.log("hljs not loaded, spinning");
 		await new Promise((resolve) => setTimeout(resolve, 100));
 		return getHljs();
 	}
@@ -217,7 +216,6 @@ td, th {
 		this.$.container.innerHTML = clean;
 
 		getHljs().then((hljs) => {
-			hljs.configure({ classPrefix: "gr-syntax-" });
 			this.$.container.querySelectorAll("pre code").forEach((block) => {
 				let language = Array.from(block.classList).find((name) => name.startsWith("language-"))?.substring(9);
 
