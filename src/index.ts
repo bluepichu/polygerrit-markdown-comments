@@ -1,5 +1,7 @@
 import marked from "marked";
 import { sanitize } from "dompurify";
+import type { LitElement } from "lit";
+import { html } from "lit-html";
 
 // The instance of highlight.js that polygerrit loads on its own has a tendency
 // to not load until after the plugin loads and the page content renders.  While
@@ -151,6 +153,8 @@ pre {
 	background: var(--view-background-color);
 	padding: 6px;
 	border-radius: 4px;
+	max-width: 100%;
+	overflow-x: auto;
 }
 
 code {
@@ -200,6 +204,13 @@ td, th {
 	border: 1px solid white;
 	padding: 6px 12px;
 }
+
+blockquote {
+	border-left: 6px solid rgba(255, 255, 255, 0.2);
+	background: rgba(255, 255, 255, 0.1);
+	padding: 1px 8px;
+	margin-left: 0px;
+}
 </style>
 <div id="container"></div>
 		`;
@@ -232,15 +243,7 @@ td, th {
 customElements.define(MarkdownText.is, MarkdownText);
 
 Gerrit.install((plugin) => {
-	customElements.get("gr-formatted-text").prototype._contentOrConfigChanged = function(this: Polymer.Element, content: string) {
-		let container = this.$.container;
-
-		while (container.firstChild) {
-			container.removeChild(container.firstChild);
-		}
-
-		let child = new MarkdownText();
-		child.setAttribute("content", content);
-		container.appendChild(child);
+	customElements.get("gr-formatted-text")!.prototype.render = function(this: LitElement & { content?: string }) {
+		return html`<markdown-text content="${this.content}"></markdown-text>`;
 	};
 });
